@@ -3,6 +3,9 @@ let resetBtn = document.querySelector("#reset-btn");
 let newGameBtn = document.querySelector("#new-btn");
 let msgContainer = document.querySelector(".msg-container");
 let msg = document.querySelector("#msg");
+let playerA = document.getElementById("playerA");
+let playerB = document.getElementById("playerB");
+playerA.style.visibility = "visible"
 
 
 let turnA = true //playerA,playerB
@@ -17,6 +20,14 @@ const winPatterns = [
     [3, 4, 5],
     [6, 7, 8],
 ];
+function playerAVisible() {
+    playerB.style.visibility = "hidden"
+    playerA.style.visibility = "visible"
+}
+function playerBVisible() {
+    playerA.style.visibility = "hidden"
+    playerB.style.visibility = "visible"
+}
 
 
 const resetGame = () => {
@@ -24,6 +35,7 @@ const resetGame = () => {
     enableBoxes();
     msgContainer.classList.add("hide");
     count = 0;
+    playerA.style.visibility = "visible"
 };
 
 boxes.forEach((box) => {
@@ -32,10 +44,15 @@ boxes.forEach((box) => {
         if (turnA) {
             box.innerText = "O";
             turnA = false;
+            playerBVisible();
         }
         else {
             box.innerText = "X";
             turnA = true;
+            playerAVisible();
+
+
+
         }
         box.disabled = true;
         checkWinner();
@@ -44,6 +61,10 @@ boxes.forEach((box) => {
             disabBoxes();
             msg.innerText = `Its a draw`;
             msgContainer.classList.remove("hide");
+            playerA.style.visibility = "hidden"
+            playerB.style.visibility = "hidden"
+
+
         }
     });
 
@@ -61,9 +82,17 @@ const enableBoxes = () => {
     }
 };
 const showWinner = (winner) => {
-    msg.innerText = `Congratulation Winner is ${winner}`;
+    if (winner === "X") {
+        msg.innerText = `Congratulation Winner is Player B`;
+    }
+    else {
+        msg.innerText = `Congratulation Winner is Player A`;
+
+    }
     msgContainer.classList.remove("hide");
     disabBoxes();
+    playerA.style.visibility = "hidden"
+    playerB.style.visibility = "hidden"
 };
 const checkWinner = () => {
     for (pattern of winPatterns) {

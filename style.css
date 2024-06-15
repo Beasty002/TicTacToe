@@ -10,9 +10,8 @@ body {
 
 .container {
     height: 70vh;
-    display: flex;
-
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
 }
 
@@ -71,4 +70,8 @@ body {
 
 .hide {
     display: none;
+}
+
+.player {
+    visibility: hidden;
 }
